@@ -28,14 +28,14 @@ def fermi_dirac_fn(energy, temperature, chemical_potential):
     :param chemical_potential: chemical potential (mu) that characterizes the system at T, as a float number.
     :return: value (float) of the Fermi-Dirac distribution function evaluated in E with the particular mu.
     """
-    return 1. / (np.exp(-(energy - chemical_potential) / (const.k_B * temperature)) + 1)
+    return 1. / (np.exp(-(energy - chemical_potential) / ((const.k_B * temperature)).to(u.eV)) + 1)
 
 
 # Parameters:
 temperature_float = 300. * u.K
 chemical_potential_float = 5.53 * u.eV  # aprox. by Fermi energy (of Au)
 energy_initial_float = 0. * u.eV
-energy_final_float = 10 * u.eV
+energy_final_float = 10. * u.eV
 energy_step_float = 0.01 * u.eV
 energy_steps_number_float = (energy_final_float - energy_initial_float) / energy_step_float
 energy_bias_float = 4. * u.eV
@@ -63,8 +63,8 @@ plt.axvline(x=chemical_potential_float.value, ls=':', color='g', label='Chem. Po
 plt.axvline(x=(chemical_potential_float - energy_bias_float).value,
             ls=':', color='b', label='Chem. Pot. - Bias Energy = ' +
                                       '%.3E' % Decimal(str((chemical_potential_float - energy_bias_float).value)))
-#plt.axvline(x=(chemical_potential_float + const.k_B * temperature_float).value, ls='-.', color='g')
-#plt.axvline(x=(chemical_potential_float - const.k_B * temperature_float).value, ls='-.', color='g')
+#plt.axvline(x=(chemical_potential_float + (const.k_B * temperature_float).to(u.eV)).value, ls='-.', color='g')
+#plt.axvline(x=(chemical_potential_float - (const.k_B * temperature_float).to(u.eV)).value, ls='-.', color='g')
 plt.fill_between(energy_array.value, fermiDiracDiff_array.value, color=(1, 1, 224/255, 0.3),
                  label='Integral = ' + '%.3E' % Decimal(str(integral_value_float.value)))
 plt.legend()
