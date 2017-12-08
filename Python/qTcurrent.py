@@ -52,21 +52,21 @@ integral_value_float = integrate.trapz(fermiDiracDiff_array, energy_array)
 
 # Plot:
 plt.figure(1)
-plt.plot(energy_array, fermiDiracDiff_array, '-', color='orange', label='F-D diff.')
-plt.plot(energy_array, fermiDiracLeft_array, '--', color='r', label='F-D Left')
-plt.plot(energy_array, fermiDiracRight_array, '--', color='m', label='F-D Right')
+plt.plot(energy_array, fermiDiracDiff_array, '-', color='orange', label='$n_{FD}^L(E) - n_{FD}^R(E+U_{bias})$')
+plt.plot(energy_array, fermiDiracLeft_array, '--', color='r', label='$n_{FD}^L(E)$')
+plt.plot(energy_array, fermiDiracRight_array, '--', color='m', label='$n_{FD}^R(E+U_{bias})$')
 plt.title('Fermi-Dirac functions')
 plt.xlabel('Energy [eV]', fontsize=12)
 plt.ylabel('Probability Distribution Density', fontsize=12)
-plt.axvline(x=chemical_potential_float.value, ls=':', color='g', label='Chem. Pot. = ' +
-                                                                  '%.3E' % Decimal(str(chemical_potential_float.value)))
+plt.axvline(x=chemical_potential_float.value, ls=':',
+            color='g', label='$\mu$ = ' + '%.3e' % Decimal(str(chemical_potential_float.value)))
 plt.axvline(x=(chemical_potential_float - energy_bias_float).value,
-            ls=':', color='b', label='Chem. Pot. - Bias Energy = ' +
-                                      '%.3E' % Decimal(str((chemical_potential_float - energy_bias_float).value)))
+            ls=':', color='b', label='$\mu - U_{bias}$ = '
+                                     + '%.3e' % Decimal(str((chemical_potential_float - energy_bias_float).value)))
 #plt.axvline(x=(chemical_potential_float + (const.k_B * temperature_float).to(u.eV)).value, ls='-.', color='g')
 #plt.axvline(x=(chemical_potential_float - (const.k_B * temperature_float).to(u.eV)).value, ls='-.', color='g')
 plt.fill_between(energy_array.value, fermiDiracDiff_array.value, color=(1, 1, 224/255, 0.3),
-                 label='Integral = ' + '%.3E' % Decimal(str(integral_value_float.value)))
+                 label='Integral = ' + '%.3e' % Decimal(str(integral_value_float.value)))
 plt.legend()
 plt.grid(linestyle='--')
 
