@@ -28,7 +28,7 @@ def fermi_dirac_fn(energy, temperature, chemical_potential):
     :return: value (float or numpy array of floats) of the Fermi-Dirac distribution function evaluated in E
     with the particular mu.
     """
-    return 1. / (np.exp(-(energy - chemical_potential) / (const.k_B * temperature).to(u.eV)) + 1)
+    return 1. / (np.exp((energy - chemical_potential) / (const.k_B * temperature).to(u.eV)) + 1)
 
 
 def transmission_prob_rectangular_barrier_no_bias_fn(energy, potential_barrier_height, potential_barrier_width,
